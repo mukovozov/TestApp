@@ -1,0 +1,197 @@
+static def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.maven { url 'https://jitpack.io' }
+    handler.maven { url 'https://maven.fabric.io/public' }
+}
+
+ext.addRepos = this.&addRepos
+
+def deps = [:]
+def versions = [:]
+
+//region Build versions
+def build_versions = [:]
+
+build_versions.min_sdk = 23
+build_versions.target_sdk = 30
+build_versions.compile_sdk = 30
+
+ext.build_versions = build_versions
+//endregion
+
+//region Gradle
+versions.android_plugin = '3.4.1'
+
+def gradle = [:]
+gradle.android_plugin = "com.android.tools.build:gradle:$versions.android_plugin"
+
+deps.gradle = gradle
+//endregion
+
+//region Kotlin
+versions.kotlin = '1.4.30'
+
+def kotlin = [:]
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+
+deps.kotlin = kotlin
+//endregion
+
+//region Core
+versions.appcompat = '1.0.2'
+versions.coreKtx = '1.0.2'
+versions.annotation = '1.1.0'
+
+def core = [:]
+core.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
+core.coreKtx = "androidx.core:core-ktx:$versions.coreKtx"
+core.annotation = "androidx.annotation:annotation:$versions.annotation"
+
+deps.core = core
+//endregion
+
+//region UI
+versions.constraintLayout = '1.1.3'
+versions.stateDelegator = '1.5'
+versions.recyclerView = '1.0.0'
+versions.groupie = '2.3.0'
+versions.material = '1.1.0-alpha06'
+versions.glide = '4.9.0'
+versions.rxBinding = '3.0.0'
+
+def ui = [:]
+ui.constraintLayout = "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
+ui.stateDelegator = "com.redmadrobot:state-delegator:$versions.stateDelegator"
+ui.recyclerView = "androidx.recyclerview:recyclerview:$versions.recyclerView"
+ui.material = "com.google.android.material:material:$versions.material"
+ui.groupie = "com.xwray:groupie:$versions.groupie"
+ui.glide = "com.github.bumptech.glide:glide:$versions.glide"
+ui.glideCompiler = "com.github.bumptech.glide:compiler:$versions.glide"
+ui.rxBinding = "com.jakewharton.rxbinding3:rxbinding:$versions.rxBinding"
+
+deps.ui = ui
+//endregion
+
+//region Test
+versions.junit = '4.12'
+
+def test = [:]
+test.junit = "junit:junit:$versions.junit"
+
+deps.test = test
+//endregion
+
+//region Android Jetpack
+versions.lifecycle = '2.0.0'
+versions.navigation = '2.1.0-alpha04'
+versions.room = '2.1.0-beta01'
+versions.workManager = "2.1.0-rc01"
+
+def jetpack = [:]
+jetpack.lifecycle = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+
+jetpack.navigationFragment = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+jetpack.navigationUi = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+jetpack.navigationSafeargs = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+
+jetpack.room = "androidx.room:room-runtime:$versions.room"
+jetpack.roomCompiler = "androidx.room:room-compiler:$versions.room"
+jetpack.roomRx = "androidx.room:room-rxjava2:$versions.room"
+
+jetpack.workManager = "androidx.work:work-runtime-ktx:$versions.workManager"
+jetpack.workManagerRx = "androidx.work:work-rxjava2:$versions.workManager"
+
+deps.jetpack = jetpack
+//endregion
+
+//region Security
+def security = [:]
+
+versions.tink = "1.2.2"
+security.tink = "com.google.crypto.tink:tink-android:$versions.tink"
+
+deps.security = security
+//endregion
+
+//region Retrofit
+versions.retrofit = '2.5.0'
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gsonConverter = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.rxjava = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+deps.retrofit = retrofit
+//endregion
+
+//region RxJava
+versions.rxJava = '2.2.8'
+versions.rxAndroid = '2.1.1'
+def rxJava = [:]
+
+rxJava.runtime = "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+rxJava.Android = "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+
+deps.rxJava = rxJava
+//endregion
+
+//region Debugging
+versions.timber = '4.7.1'
+versions.loggingInterceptor = '3.0.0'
+versions.stetho = '1.5.1'
+versions.debug_db = '1.0.6'
+versions.fabric_plugin = "1.+"
+versions.crashlytics = "2.9.9@aar"
+def debugging = [:]
+
+debugging.timber = "com.jakewharton.timber:timber:$versions.timber"
+debugging.loggingInterceptor = "com.github.ihsanbal:LoggingInterceptor:$versions.loggingInterceptor"
+debugging.stetho = "com.facebook.stetho:stetho:$versions.stetho"
+debugging.debug_db = "com.amitshekhar.android:debug-db:$versions.debug_db"
+debugging.crashlytics = "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
+debugging.fabric_plugin = "io.fabric.tools:gradle:$versions.fabric_plugin"
+
+deps.debugging = debugging
+//endregion
+
+//region Dagger
+versions.dagger = '2.22.1'
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+
+deps.dagger = dagger
+//endregion
+
+//region Tools
+versions.permissionDispatcher = '4.3.1'
+versions.binaryPreferences = '1.0.1'
+versions.jodatimeAndroid = "2.9.9.1"
+versions.jodatimeJava = "2.10.1"
+versions.email = "1.6.2"
+
+def tools = [:]
+tools.permissionDispatcher = "org.permissionsdispatcher:permissionsdispatcher:$versions.permissionDispatcher"
+tools.permissionDispatcherAnnotationProcessor = "org.permissionsdispatcher:permissionsdispatcher-processor:$versions.permissionDispatcher"
+tools.binaryPreferences = "com.github.yandextaxitech:binaryprefs:$versions.binaryPreferences"
+
+tools.jodatimeAndroid = "net.danlew:android.joda:$versions.jodatimeAndroid"
+tools.jodatimeJava = "joda-time:joda-time:$versions.jodatimeJava"
+
+tools.email = "com.sun.mail:android-mail:$versions.email"
+tools.emailActivation = "com.sun.mail:android-activation:$versions.email"
+
+deps.tools = tools
+//endregion
+
+//region GoogleServices
+versions.gmsLocation = '16.0.0'
+def googleServices = [:]
+googleServices.location = "com.google.android.gms:play-services-location:$versions.gmsLocation"
+
+deps.googleServices = googleServices
+//endregion
+
+ext.deps = deps

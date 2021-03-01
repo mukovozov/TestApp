@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TestApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="stub_message">Что-то пошло не так</string>
+    <string name="login">login</string>
+    <string name="password">password</string>
+    <string name="email_validation_error">Введите корректную почту</string>
+    <string name="password_validation_error">Введите корректный пароль</string>
+    <string name="enter">Войти</string>
+    <string name="weather_report">Город: %s, температура: %s, погода: %s, влажность; %s</string>
+</resources>
